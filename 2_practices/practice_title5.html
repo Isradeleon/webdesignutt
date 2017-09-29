@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Practice 5</title>
+		<link rel="stylesheet" href="../bulma/css/bulma.css">
+		<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+		<style>
+			/*.added{
+				margin:5px;
+			}*/
+		</style>
+	</head>
+	<body>
+		<div class="box">
+		  <article class="media">
+			<div class="media-left">
+			  <figure class="image is-64x64">
+				<img src="../img/jquery-icon.png" alt="Image">
+			  </figure>
+			</div>
+			<div class="media-content">
+			  <div class="content">
+				<p>
+				  <strong>jQuery</strong> <small>@isradeleon</small> <small>UTT</small>
+				  <br>
+				  Practice with titles. Select an option for the size of the titles you're gonna add.
+				</p>
+			  </div>
+			  <nav class="level is-mobile">
+				<div class="level-left">
+					<div class="select">
+						<select id="styles-select">
+							<option value="1">Title 1</option>
+							<option value="2">Title 2</option>
+							<option value="3">Title 3</option>
+							<option value="4">Title 4</option>
+							<option value="5">Title 5</option>
+							<option value="6">Title 6</option>
+						</select>
+					</div>
+				</div>
+			  </nav>
+			  <a id="add-btn" class="button is-outlined is-info"><i class="fa fa-plus"></i></a>
+			  <a id="remove-btn" class="button is-outlined is-danger"><i class="fa fa-remove"></i></a>
+			</div>
+		  </article>
+		</div>
+		<div id="titles-container"></div>
+		<script src="../jquery/jquery.min.js"></script>
+		<script>
+			$(function(){
+				$('#add-btn').on('click',function(){
+					$('#titles-container').append(
+						$('<h'+$('#styles-select')
+						.val()+'>').attr('class','added title is-'+$('#styles-select')
+						.val()).text($($('#styles-select').children('option[value="'+$('#styles-select').val()+'"]')).text()))
+				})
+				
+				$('#remove-btn').on('click',function(){
+					if($('#titles-container').html() != ''){
+						$('#titles-container').children(':last').remove()
+					}else
+						console.log('Nothing!')
+				})
+			})
+		</script>
+	</body>
+</html>

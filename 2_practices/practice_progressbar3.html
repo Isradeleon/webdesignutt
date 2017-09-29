@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Practice 3</title>
+		<link rel="stylesheet" href="../bulma/css/bulma.css">
+		<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+		<style>
+			/*.added{
+				padding:5px;
+			}*/
+		</style>
+	</head>
+	<body>
+		<div class="box">
+		  <article class="media">
+			<div class="media-left">
+			  <figure class="image is-64x64">
+				<img src="../img/jquery-icon.png" alt="Image">
+			  </figure>
+			</div>
+			<div class="media-content">
+			  <div class="content">
+				<p>
+				  <strong>jQuery</strong> <small>@isradeleon</small> <small>UTT</small>
+				  <br>
+				  Practice with progress bar. Select an option for the style of the bar you're gonna add.
+				</p>
+			  </div>
+			  <nav class="level is-mobile">
+				<div class="level-left">
+					<div class="select">
+						<select id="styles-select">
+							<option value="is-primary">Primary</option>
+							<option value="is-info">Info</option>
+							<option value="is-success">Success</option>
+							<option value="is-danger">Danger</option>
+							<option value="is-warning">Warning</option>
+						</select>
+					</div>
+				</div>
+			  </nav>
+			  <a id="add-btn" class="button is-outlined is-info"><i class="fa fa-plus"></i></a>
+			  <a id="remove-btn" class="button is-outlined is-danger"><i class="fa fa-remove"></i></a>
+			</div>
+		  </article>
+		</div>
+		<div id="bars-container"></div>
+		<script src="../jquery/jquery.min.js"></script>
+		<script>
+			$(function(){
+				$('#add-btn').on('click',function(){
+					$('#bars-container').append(
+						$('<progress>').attr('class','added progress '+$('#styles-select')
+						.val()).attr('value','50').attr('max','100'))
+				})
+				
+				$('#remove-btn').on('click',function(){
+					if($('#bars-container').html() != ''){
+						$('#bars-container').children('progress:last').remove()
+					}else
+						console.log('Nothing!')
+				})
+			})
+		</script>
+	</body>
+</html>
