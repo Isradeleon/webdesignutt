@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Practice 3</title>
+  <link rel="stylesheet" href="../bulma/css/bulma.css">
+  <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+  <style media="screen">
+    body{
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="columns">
+    <div class="column">
+      <div id="dropdown-button" class="dropdown">
+        <div class="dropdown-trigger">
+          <button class="button is-primary" aria-haspopup="true" aria-controls="dropdown-menu1">
+            <span>Dropdown button</span>
+            <span class="icon is-small">
+              <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu1" role="menu">
+          <div class="dropdown-content">
+            <a data-count="1" class="dropdown-item">
+              is-1
+            </a>
+            <a data-count="2" class="dropdown-item">
+              is-2
+            </a>
+            <a data-count="3" class="dropdown-item">
+              is-3
+            </a>
+            <a data-count="4" class="dropdown-item">
+              is-4
+            </a>
+            <a data-count="5" class="dropdown-item">
+              is-5
+            </a>
+            <a data-count="6" class="dropdown-item">
+              is-6
+            </a>
+            <a data-count="7" class="dropdown-item">
+              is-7
+            </a>
+            <a data-count="8" class="dropdown-item">
+              is-8
+            </a>
+            <a data-count="9" class="dropdown-item">
+              is-9
+            </a>
+            <a data-count="10" class="dropdown-item">
+              is-10
+            </a>
+            <a data-count="11" class="dropdown-item">
+              is-11
+            </a>
+            <a data-count="12" class="dropdown-item">
+              is-12
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="container" class="columns"></div>
+
+  <script type="text/javascript" src="../jquery/jquery.min.js"></script>
+  <script type="text/javascript">
+  $(function(){
+    let count=0
+    $('a.dropdown-item').on('click',function(){
+      $('a.is-active').removeClass('is-active')
+      $(this).addClass('is-active')
+
+      $('#container').empty()
+      $('#container').append($('<div>').attr('class','column '+
+      $(this).text().trim()).append($('<div>')
+      .attr('class','notification is-danger')))
+      count=$(this).data('count')
+      for (var i = 1; i <= 12-count; i++) {
+        $('#container').append($('<div>').attr('class','column').append($('<div>')
+        .attr('class','notification is-primary')))
+      }
+    })
+  })
+  </script>
+  <script type="text/javascript" src="../bulma/js/main.js"></script>
+</body>
+</html>
