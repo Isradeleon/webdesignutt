@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dropdown</title>
+    <link rel="stylesheet" href="../bulma/css/bulma.css">
+    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title is-1">Dropdown Bulma</h1>
+        <hr>
+        <div class="dropdown">
+            <div class="dropdown-trigger">
+                <button class="button" aria-controls="custom-menu">
+                    <span>Dropdown menu</span>
+                    <span class="icon is-small">
+                        <i class="fa fa-angle-down"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="dropdown-menu" id="custom-menu">
+                <div class="dropdown-content">
+                    <a href="#" class="dropdown-item">
+                        Item 1
+                    </a>
+                    <a href="#" class="dropdown-item is-active">
+                        Item 2
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../bulma/js/main.js"></script>
+</body>
+</html>
