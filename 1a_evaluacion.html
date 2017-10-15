@@ -9,18 +9,18 @@
 	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 	<style>
 		.desktop{
-			padding-top: 20px;	
+			padding: 15px;	
 		}
 		.app{
 			padding: 20px 0px;
 			text-align: center;
 		}
 		.app:hover{
-			background-color: #eee;
+			background-color: rgba(30, 30, 30, 0.5);
 			cursor: pointer;
 		}
 		.tag{
-			text-align: center;
+			box-shadow: 2px 2px 2px #333;
 		}
 
 		textarea{
@@ -58,6 +58,19 @@
 		nav[aria-label="pagination"]>a{
 			border-radius: 0;
 			border-top: none;
+		}
+
+		html{
+			background-repeat: repeat;
+			background-image: url(src/one.jpg);
+		}
+
+		.actual{
+			border:5px #3273dc solid;
+			cursor: default !important;
+		}
+		figure.image{
+			cursor: pointer;
 		}
 	</style>
 </head>
@@ -109,7 +122,7 @@
 				  	VideoMP4
 				  </a>
 				  <hr class="navbar-divider">
-				  <a class="navbar-item">
+				  <a class="navbar-item" data-app="settings">
 					<span class="icon">
 						<i class="fa fa-cogs"></i>
 					</span>
@@ -166,19 +179,82 @@
 		</div>
 	</section>
 
-	<article class="modal">
+	<article class="modal" id="dynamic-modal">
 		<div class="modal-background"></div>
 		<section class="modal-content">
 			<div class="card">
-				<div class="card-content"></div>
+				<div class="card-content" id="dynamic-card"></div>
 			</div>
 		</section>
-		<button class="modal-close is-medium"></button>
-	</article>	
+		<button class="modal-close is-large"></button>
+	</article>
+
+	<article class="modal" id="modal-settings">
+		<div class="modal-background"></div>
+		<section class="modal-content">
+			<div class="card">
+				<div class="card-content">
+					<section class="simple-conf">
+						<h4 class="title is-4"><span class="icon"><i class="fa fa-cogs"></i></span> Configuration</h4>
+						<h6 class="subtitle is-6">Here you can change the theme</h6>
+						<div class="field">
+							<label class="label">Select the theme:</label>
+							<div class="select is-fullwidth">
+								<select id="select-themes">
+									<option value="is-primary">Primary theme</option>
+									<option value="is-info">Info theme</option>
+									<option value="is-danger">Danger theme</option>
+									<option value="is-warning">Warning theme</option>
+								</select>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label">Background image:</label>
+							<div class="columns">
+								<div class="column">
+									<figure class="image actual">
+										<img src="src/one.jpg">
+									</figure>
+								</div>
+								<div class="column">
+									<figure class="image">
+										<img src="src/two.jpg">
+									</figure>
+								</div>
+								<div class="column">
+									<figure class="image">
+										<img src="src/three.jpg">
+									</figure>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</section>
+		<button class="modal-close is-large"></button>
+	</article>
 
 	<script src="jquery/jquery.min.js"></script>
 	<script>
 		$(function(){
+			var configuration={
+				titles:'has-text-primary',
+				navbar:'is-primary'
+			}
+			$('a[data-app="settings"').on('click',function(){
+				$('#modal-settings').addClass('is-active')
+			})
+			$('figure.image').on('click',function(){
+				$('html').css('background-image','url('+$(this).children('img')[0].src+')')
+				$('.actual').removeClass('actual')
+				$(this).addClass('actual')
+				console.log($('html').css('background-image'))
+			})
+			$('#select-themes').on('change',function(){
+				
+			})
+
 			function set_browser(){
 				$('#select_browse').on('change',function(){
 					console.log($(this).val())
@@ -215,13 +291,23 @@
 
 			var app=''
 			$('.app').on('click',function(){
-				$('div.card-content').empty()
+				$('#dynamic-card').empty()
 				app=$(this).data('app')
 				switch(app){
+					case "word":
+						$('#dynamic-card').html(`
+							<section class="simple-word">
+								<h4 class="title is-4 ${configuration.titles}"><span class="icon"><i class="fa fa-book"></i></span> Word</h4>
+								<h6 class="subtitle is-6">Here you are able to write text</h6>
+								<textarea placeholder="Write whatever you want..." rows="10" class="textarea"></textarea>
+							</section>
+						`)
+					break;
+
 					case "power":
-						$('div.card-content').html(`
+						$('#dynamic-card').html(`
 							<section class="simple-power">
-								<h4 class="title is-4"><span class="icon"><i class="fa fa-window-maximize"></i></span> Power point</h4>
+								<h4 class="title is-4 ${configuration.titles}"><span class="icon"><i class="fa fa-window-maximize"></i></span> Power point</h4>
 								<h6 class="subtitle is-6">Here you can do presentations</h6>
 								<div class="presentation">
 									<img class="selected" src="src/one.jpg">
@@ -229,7 +315,7 @@
 									<img style="display:none;" src="src/three.jpg">
 								</div>
 								<nav class="pagination is-right" role="navigation" aria-label="pagination">
-								  <a class="pagination-previous">Previous</a>
+								  <a disabled="true" class="pagination-previous">Previous</a>
 								  <a class="pagination-next">Next page</a>
 								</nav>
 							</section>
@@ -238,9 +324,9 @@
 					break;
 
 					case "video":
-						$('div.card-content').html(`
+						$('#dynamic-card').html(`
 							<section class="simple-video">
-								<h4 class="title is-4"><span class="icon"><i class="fa fa-play"></i></span> VideoMP4</h4>
+								<h4 class="title is-4 ${configuration.titles}"><span class="icon"><i class="fa fa-play"></i></span> VideoMP4</h4>
 								<h6 class="subtitle is-6">App to watch videos</h6>
 								<video class="video" controls="true" src="src/Routine.mp4"></video>
 							</section>
@@ -248,9 +334,9 @@
 					break;
 
 					case "excel":
-						$('div.card-content').html(`
+						$('#dynamic-card').html(`
 							<section class="simple-excel">
-								<h4 class="title is-4"><span class="icon"><i class="fa fa-table"></i></span> Excel</h4>
+								<h4 class="title is-4 ${configuration.titles}"><span class="icon"><i class="fa fa-table"></i></span> Excel</h4>
 								<h6 class="subtitle is-6">Well here you have an excel table</h6>
 								<table class="table is-fullwidth is-bordered is-striped">
 									<thead>
@@ -293,9 +379,9 @@
 					break;
 
 					case "music":
-						$('div.card-content').html(`
+						$('#dynamic-card').html(`
 							<section class="simple-mp3">
-								<h4 class="title is-4"><span class="icon"><i class="fa fa-music"></i></span> MP3fy</h4>
+								<h4 class="title is-4 ${configuration.titles}"><span class="icon"><i class="fa fa-music"></i></span> MP3fy</h4>
 								<h6 class="subtitle is-6">Listen to your favorite music!</h6>
 								<table class="table is-fullwidth music-app">
 									<thead>
@@ -330,9 +416,9 @@
 					break;
 
 					case "browser":
-						$('div.card-content').html(`
+						$('#dynamic-card').html(`
 							<section class="simple-browser">
-								<h4 class="title is-4"><span class="icon"><i class="fa fa-globe"></i></span> Browser</h4>
+								<h4 class="title is-4 ${configuration.titles}"><span class="icon"><i class="fa fa-globe"></i></span> Browser</h4>
 								<h6 class="subtitle is-6">Browse the WEB</h6>
 								<div class="field has-addons">
 									<div class="control is-expanded">
@@ -358,7 +444,7 @@
 						set_browser()
 					break;
 				}
-				$('article.modal').addClass('is-active')
+				$('#dynamic-modal').addClass('is-active')
 			})
 		})
 	</script>

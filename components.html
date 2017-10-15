@@ -8,28 +8,61 @@
 	<link rel="stylesheet" href="bulma/css/bulma.css">
 	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 	<style>
-		.presentation{
-			text-align: center;
-			background-color: #eee;
+		.actual{
+			border:5px #222 solid;
+			cursor: default !important;
 		}
-		div.presentation>img{
-			display: none;
-		}
-		img.selected{
-			display: inline !important;
+		figure.image{
+			cursor: pointer;
 		}
 	</style>
 </head>
 <body>
-	<section class="simple-word">
-		<h4 class="title is-4"><span class="icon"><i class="fa fa-book"></i></span> Word</h4>
-		<h6 class="subtitle is-6">Here you are able to write text</h6>
-		
+	<section class="simple-conf">
+		<h4 class="title is-4"><span class="icon"><i class="fa fa-cogs"></i></span> Configuration</h4>
+		<h6 class="subtitle is-6">Here you can change the theme</h6>
+		<div class="field">
+			<label class="label">Select the theme:</label>
+			<div class="select is-fullwidth">
+				<select>
+					<option value="is-primary">Primary theme</option>
+					<option value="is-info">Info theme</option>
+					<option value="is-danger">Danger theme</option>
+					<option value="is-warning">Warning theme</option>
+				</select>
+			</div>
+		</div>
+		<div class="field">
+			<label class="label">Background image:</label>
+			<div class="columns">
+				<div class="column">
+					<figure class="image actual">
+						<img  src="src/one.jpg">
+					</figure>
+				</div>
+				<div class="column">
+					<figure class="image">
+						<img src="src/two.jpg">
+					</figure>
+				</div>
+				<div class="column">
+					<figure class="image">
+						<img src="src/three.jpg">
+					</figure>
+				</div>
+			</div>
+		</div>
 	</section>
 	<script src="jquery/jquery.min.js"></script>
 	<script type="text/javascript">
 	$(function(){
-		
+
+		$('figure.image').on('click',function(){
+			$('html').css('background-image','url('+$(this).children('img')[0].src+')')
+			$('.actual').removeClass('actual')
+			$(this).addClass('actual')
+			console.log($('html').css('background-image'))
+		})
 	})
 	</script>
 </body>
