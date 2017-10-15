@@ -195,16 +195,17 @@
 			<div class="card">
 				<div class="card-content">
 					<section class="simple-conf">
-						<h4 class="title is-4"><span class="icon"><i class="fa fa-cogs"></i></span> Configuration</h4>
+						<h4 id="title-configuration" class="title is-4 has-text-primary"><span class="icon"><i class="fa fa-cogs"></i></span> Configuration</h4>
 						<h6 class="subtitle is-6">Here you can change the theme</h6>
 						<div class="field">
 							<label class="label">Select the theme:</label>
 							<div class="select is-fullwidth">
 								<select id="select-themes">
-									<option value="is-primary">Primary theme</option>
-									<option value="is-info">Info theme</option>
-									<option value="is-danger">Danger theme</option>
-									<option value="is-warning">Warning theme</option>
+									<option value="is-primary_has-text-primary">Primary theme</option>
+									<option value="is-info_has-text-info">Info theme</option>
+									<option value="is-danger_has-text-danger">Danger theme</option>
+									<option value="is-warning_has-text-warning">Warning theme</option>
+									<option value="is-dark_has-text-dark">Dark theme</option>
 								</select>
 							</div>
 						</div>
@@ -242,6 +243,7 @@
 				titles:'has-text-primary',
 				navbar:'is-primary'
 			}
+			var array_aux=[]
 			$('a[data-app="settings"').on('click',function(){
 				$('#modal-settings').addClass('is-active')
 			})
@@ -252,7 +254,12 @@
 				console.log($('html').css('background-image'))
 			})
 			$('#select-themes').on('change',function(){
-				
+				array_aux=$(this).val().split('_')
+
+				$('.navbar').removeClass(configuration.navbar).addClass(array_aux[0])
+				$('#title-configuration').removeClass(configuration.titles).addClass(array_aux[1])
+				configuration.navbar=array_aux[0]
+				configuration.titles=array_aux[1]
 			})
 
 			function set_browser(){
