@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>1a Evaluación</title>
+	<link rel="stylesheet" href="bulma/css/bulma.css">
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+	<style>
+		.desktop{
+			padding-top: 20px;	
+		}
+		.app{
+			padding: 20px 0px;
+			text-align: center;
+		}
+		.app:hover{
+			background-color: #eee;
+			cursor: pointer;
+		}
+		.tag{
+			text-align: center;
+		}
+
+		textarea{
+			resize: none !important;
+		}
+		iframe{
+			border: 1px lightgray solid;
+			border-radius: 0;
+			width: 100%;
+			min-height: 300px;
+			max-height: 800px;
+		}
+		table.music-app td, table.music-app th{
+			text-align: center !important;
+		}
+		.cell{
+			text-align: center !important;
+		}
+		.video{
+			width: 100%;
+			margin: 0px auto;
+			max-height: 500px;
+		}
+
+		.presentation{
+			text-align: center;
+			background-color: #eee;
+		}
+		div.presentation>img{
+			display: none;
+		}
+		img.selected{
+			display: inline !important;
+		}
+		nav[aria-label="pagination"]>a{
+			border-radius: 0;
+			border-top: none;
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar is-primary">
+		<div class="navbar-brand">
+			<div class="navbar-item has-dropdown is-hoverable">
+				<a class="navbar-link">
+					<span class="icon is-medium">
+						<i class="fa fa-linux"></i>
+					</span>
+					twOS
+				</a>
+				<div class="navbar-dropdown">
+				  <a class="navbar-item app" data-app="word">
+				  	<div class="icon">
+						<i class="fa fa-book"></i>
+				  	</div>
+				  	Word
+				  </a>
+				  <a class="navbar-item app" data-app="power">
+				  	<div class="icon">
+						<i class="fa fa-window-maximize"></i>
+				  	</div>
+				  	Power point
+				  </a>
+				  <a class="navbar-item app" data-app="excel">
+				  	<div class="icon">
+						<i class="fa fa-table"></i>
+				  	</div>
+				  	Excel
+				  </a>
+				  <a class="navbar-item app" data-app="music">
+				  	<div class="icon">
+						<i class="fa fa-music"></i>
+				  	</div>
+				  	MP3fy
+				  </a>
+				  <a class="navbar-item app" data-app="browser">
+				  	<div class="icon">
+						<i class="fa fa-globe"></i>
+				  	</div>
+				  	Browser
+				  </a>
+				  <a class="navbar-item app" data-app="video">
+				  	<div class="icon">
+						<i class="fa fa-play"></i>
+				  	</div>
+				  	VideoMP4
+				  </a>
+				  <hr class="navbar-divider">
+				  <a class="navbar-item">
+					<span class="icon">
+						<i class="fa fa-cogs"></i>
+					</span>
+					Settings
+				  </a>
+				</div>
+			</div>
+		</div>
+		<div class="navbar-menu">
+			<div class="navbar-start" id="apps-section">
+			</div>
+			<div class="navbar-end">
+				<a class="navbar-item">9:30pm</a>
+			</div>
+		</div>
+	</nav>
+
+	<section class="desktop">
+		<div class="columns">
+			<div class="column is-1 app" data-app="word">
+				<article class="tag is-large is-info">
+					<i class="fa fa-book"></i>
+				</article>
+			</div>
+			<div class="column is-1 app" data-app="excel">
+				<article class="tag is-large is-primary">
+					<i class="fa fa-table"></i>
+				</article>
+			</div>
+			<div class="column is-1 app" data-app="power">
+				<article class="tag is-large is-danger">
+					<i class="fa fa-window-maximize"></i>
+				</article>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="column is-1 app" data-app="browser">
+				<article class="tag is-large is-success">
+					<i class="fa fa-globe"></i>
+				</article>
+			</div>
+			<div class="column is-1 app" data-app="music">
+				<article class="tag is-large is-warning">
+					<i class="fa fa-music"></i>
+				</article>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="column is-1 app" data-app="video">
+				<article class="tag is-large is-dark">
+					<i class="fa fa-play"></i>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<article class="modal">
+		<div class="modal-background"></div>
+		<section class="modal-content">
+			<div class="card">
+				<div class="card-content"></div>
+			</div>
+		</section>
+		<button class="modal-close is-medium"></button>
+	</article>	
+
+	<script src="jquery/jquery.min.js"></script>
+	<script>
+		$(function(){
+			function set_browser(){
+				$('#select_browse').on('change',function(){
+					console.log($(this).val())
+					$('iframe').attr('src','4_components/'+$(this).val())
+				})
+			}
+			function set_power(){
+				$('a.pagination-next').on('click',function(){
+					if ($('.presentation').children('.selected').next().length>0) {
+						$('.presentation').children('.selected').removeClass('selected')
+						.next().addClass('selected')
+						if ($('.presentation').children('.selected').next().length==0)
+							$(this).attr('disabled',true)
+						$('a.pagination-previous').attr('disabled',false)
+					}
+				})
+				$('a.pagination-previous').on('click',function(){
+					if ($('.presentation').children('.selected').prev().length>0) {
+						$('.presentation').children('.selected').removeClass('selected')
+						.prev().addClass('selected')
+						if ($('.presentation').children('.selected').prev().length==0)
+							$(this).attr('disabled',true)
+						$('a.pagination-next').attr('disabled',false)
+					}
+				})
+			}
+
+			$('button.modal-close').on('click',function(){
+				$(this).parent().removeClass('is-active')
+				$('audio,video').each(function(){
+				    this.pause()
+				})
+			})
+
+			var app=''
+			$('.app').on('click',function(){
+				$('div.card-content').empty()
+				app=$(this).data('app')
+				switch(app){
+					case "power":
+						$('div.card-content').html(`
+							<section class="simple-power">
+								<h4 class="title is-4"><span class="icon"><i class="fa fa-window-maximize"></i></span> Power point</h4>
+								<h6 class="subtitle is-6">Here you can do presentations</h6>
+								<div class="presentation">
+									<img class="selected" src="src/one.jpg">
+									<img style="display:none;" src="src/two.jpg">
+									<img style="display:none;" src="src/three.jpg">
+								</div>
+								<nav class="pagination is-right" role="navigation" aria-label="pagination">
+								  <a class="pagination-previous">Previous</a>
+								  <a class="pagination-next">Next page</a>
+								</nav>
+							</section>
+						`)
+						set_power()
+					break;
+
+					case "video":
+						$('div.card-content').html(`
+							<section class="simple-video">
+								<h4 class="title is-4"><span class="icon"><i class="fa fa-play"></i></span> VideoMP4</h4>
+								<h6 class="subtitle is-6">App to watch videos</h6>
+								<video class="video" controls="true" src="src/Routine.mp4"></video>
+							</section>
+						`)
+					break;
+
+					case "excel":
+						$('div.card-content').html(`
+							<section class="simple-excel">
+								<h4 class="title is-4"><span class="icon"><i class="fa fa-table"></i></span> Excel</h4>
+								<h6 class="subtitle is-6">Well here you have an excel table</h6>
+								<table class="table is-fullwidth is-bordered is-striped">
+									<thead>
+										<tr>
+											<th class="cell">A</th>
+											<th class="cell">B</th>
+											<th class="cell">C</th>
+											<th class="cell">D</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="cell"><strong>1</strong></td>
+											<td>Data.</td>
+											<td>Math.</td>
+											<td>More math.</td>
+										</tr>
+										<tr>
+											<td class="cell"><strong>2</strong></td>
+											<td>Data.</td>
+											<td>Math.</td>
+											<td>More math.</td>
+										</tr>
+										<tr>
+											<td class="cell"><strong>3</strong></td>
+											<td>Data.</td>
+											<td>Math.</td>
+											<td>More math.</td>
+										</tr>
+										<tr>
+											<td class="cell"><strong>4</strong></td>
+											<td>Data.</td>
+											<td>Math.</td>
+											<td>More math.</td>
+										</tr>
+									</tbody>
+								</table>
+							</section>
+						`)
+					break;
+
+					case "music":
+						$('div.card-content').html(`
+							<section class="simple-mp3">
+								<h4 class="title is-4"><span class="icon"><i class="fa fa-music"></i></span> MP3fy</h4>
+								<h6 class="subtitle is-6">Listen to your favorite music!</h6>
+								<table class="table is-fullwidth music-app">
+									<thead>
+										<tr>
+											<th>Artist</th>
+											<th>Song</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr >
+											<td>Jasmine Thompson</td>
+											<td>
+												<audio controls=true src="src/Mad_World.mp3"></audio>
+											</td>
+										</tr>
+										<tr>
+											<td>Robin Schulz</td>
+											<td>
+												<audio controls=true src="src/Sun_Goes_Down.mp3"></audio>
+											</td>
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+											<td>Artists: 2</td>
+											<td>Songs: 2</td>
+										</tr>
+									</tfoot>
+								</table>
+							</section>
+						`)
+					break;
+
+					case "browser":
+						$('div.card-content').html(`
+							<section class="simple-browser">
+								<h4 class="title is-4"><span class="icon"><i class="fa fa-globe"></i></span> Browser</h4>
+								<h6 class="subtitle is-6">Browse the WEB</h6>
+								<div class="field has-addons">
+									<div class="control is-expanded">
+										<div class="select is-fullwidth">
+											<select id="select_browse">
+												<option value="breadcrumb.html">http://www.breadcrumb.com</option>
+												<option value="card.html">http://www.card.com</option>
+												<option value="panel.html">http://www.panel.com</option>
+											</select>
+										</div>
+									</div>
+									<div class="control">
+									    <a class="button is-static">
+									      	<span class="icon">
+									      		<i class="fa fa-globe"></i>
+									      	</span>
+									    </a>
+									</div>
+								</div>
+								<iframe sandbox="allow-scripts allow-pointer-lock allow-same-origin" src="4_components/breadcrumb.html"></iframe>
+							</section>
+						`)
+						set_browser()
+					break;
+				}
+				$('article.modal').addClass('is-active')
+			})
+		})
+	</script>
+</body>
+</html>
