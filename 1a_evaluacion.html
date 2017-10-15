@@ -135,7 +135,7 @@
 			<div class="navbar-start" id="apps-section">
 			</div>
 			<div class="navbar-end">
-				<a class="navbar-item">9:30pm</a>
+				<a id="time" class="navbar-item"></a>
 			</div>
 		</div>
 	</nav>
@@ -204,6 +204,7 @@
 									<option value="is-primary_has-text-primary">Primary theme</option>
 									<option value="is-info_has-text-info">Info theme</option>
 									<option value="is-danger_has-text-danger">Danger theme</option>
+									<option value="is-success_has-text-success">Success theme</option>
 									<option value="is-warning_has-text-warning">Warning theme</option>
 									<option value="is-dark_has-text-dark">Dark theme</option>
 								</select>
@@ -238,7 +239,17 @@
 
 	<script src="jquery/jquery.min.js"></script>
 	<script>
+			Date.prototype.timeNowSeconds = function () {
+				return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
+			}
+		Date.prototype.timeNow = function () {
+			return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes();
+		}
 		$(function(){
+			$('#time').text((new Date()).timeNowSeconds())
+			setInterval(function(){
+				$('#time').text((new Date()).timeNowSeconds())
+			},1000)
 			var configuration={
 				titles:'has-text-primary',
 				navbar:'is-primary'
