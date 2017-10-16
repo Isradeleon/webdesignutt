@@ -302,9 +302,10 @@
 
 			$('button.modal-close').on('click',function(){
 				$(this).parent().removeClass('is-active')
-				$('audio,video').each(function(){
+				$('audio').each(function(){
 				    this.pause()
 				})
+				$('#dynamic-card').empty()
 			})
 
 			var app=''
@@ -346,7 +347,10 @@
 							<section class="simple-video">
 								<h4 class="title is-4 ${configuration.titles}"><span class="icon"><i class="fa fa-play"></i></span> VideoMP4</h4>
 								<h6 class="subtitle is-6">App to watch videos</h6>
-								<video class="video" controls="true" src="src/Routine.mp4"></video>
+								<!--<video class="video" controls="true" src="https://www.youtube.com/watch?v=1-xGerv5FOk"></video>-->
+								<iframe width="420" height="315"
+									src="https://www.youtube.com/embed/1-xGerv5FOk?autoplay=1">
+								</iframe>
 							</section>
 						`)
 					break;
